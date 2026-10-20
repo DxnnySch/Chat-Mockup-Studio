@@ -1,0 +1,16 @@
+/* AI assist (editor UI only) */
+.fld-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 22px; }
+.fld-head label { color: var(--ui-muted); font-size: 12px; }
+.ai-btn { background: linear-gradient(135deg, color-mix(in srgb, var(--ui-accent) 14%, var(--ui-panel)), var(--ui-panel)); border-color: color-mix(in srgb, var(--ui-accent) 45%, var(--ui-border)); color: var(--ui-accent); font-weight: 600; white-space: nowrap; flex: none; }
+.ai-overlay { position: fixed; inset: 0; background: rgba(8, 10, 16, .55); display: flex; align-items: center; justify-content: center; z-index: 300; padding: 20px; }
+.ai-dialog { width: min(620px, 100%); max-height: 92vh; overflow: auto; background: var(--ui-panel); border: 1px solid var(--ui-border); border-radius: 14px; box-shadow: 0 24px 70px rgba(0,0,0,.4); padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; }
+.ai-head { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.ai-head .ai-sub { flex: 1; }
+.ai-sub { color: var(--ui-muted); font-size: 12px; }
+.ai-lbl { color: var(--ui-muted); font-size: 12px; font-weight: 600; margin-top: 4px; }
+.ai-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.ai-chips button { color: var(--ui-muted); }
+.ai-chk { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.ai-err { color: var(--ui-danger); font-size: 12px; white-space: pre-wrap; }
+.ai-err:empty { display: none; }
+.ai-dialog textarea { font-family: inherit; font-size: 13px; }
