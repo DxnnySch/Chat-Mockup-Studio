@@ -8,7 +8,8 @@
     "vendor": "node scripts/vendor.mjs",
     "start": "node server.mjs",
     "test": "node --test tests/unit/*.test.js",
-    "test:e2e": "node tests/e2e.mjs"
+    "test:e2e": "node tests/e2e.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "devDependencies": {
     "html-to-image": "^1.11.13",

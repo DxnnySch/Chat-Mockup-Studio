@@ -7,6 +7,7 @@ import { parseFigureJson, cleanOutput } from '../../src/aiPrompts.js';
 import { chartSvg } from '../../src/render/charts.js';
 import { renderBlock } from '../../src/render/blocks.js';
 import { baseTheme, newProject } from '../../src/defaults.js';
+import { diagramSvg } from '../../src/render/diagram.js';
 
 test('linreg: perfect line, constant x, too few points', () => {
   const r = linreg([{ x: 1, y: 3 }, { x: 2, y: 5 }, { x: 3, y: 7 }]);
@@ -86,6 +87,12 @@ test('parseFigureJson expands the synthetic generator spec (cheap LLM output, ex
   const g = parseFigureJson(JSON.stringify({ synthetic: { from: -5, to: 99999, rho: 7, aNoise: 0, seed: 'x' }, panels: [{ source: 'scatter' }] }));
   assert.ok(g.panels[0].csv.split('\n').length <= 252);
   assert.throws(() => parseFigureJson(JSON.stringify({ panels: [{ source: 'scatter' }] })));       // source without synthetic
+});
+
+test('diagram: back-edge curves get vertical room (no clipping)', () => {
+  const theme = baseTheme(), vb = (src) => diagramSvg({ src }, { fs: 22, theme, width: 900 }).match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/).slice(1).map(Number);
+  const plain = vb('A --> B --> C'), cyc = vb('A --> B --> C\nC --> A');
+  assert.equal(plain[0], cyc[0]); assert.ok(cyc[1] > plain[1] + 20, `cyclic height ${cyc[1]} vs ${plain[1]}`);
 });
 
 test('figure + svg blocks render (and survive junk)', () => {

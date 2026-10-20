@@ -1,5 +1,5 @@
 /* Rendered chat (the exported artwork). Dynamic values come from inline styles / CSS variables set in render/chat.js */
-.stage { position: relative; box-sizing: border-box; overflow: hidden; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+.stage { position: relative; box-sizing: border-box; overflow: hidden; text-rendering: geometricPrecision; -webkit-font-smoothing: antialiased; }
 .stage *, .stage *::before, .stage *::after { box-sizing: border-box; }
 .stage .chat-window { position: relative; overflow: hidden; display: flex; flex-direction: column; }
 .stage .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 34%; height: 22px; border-radius: 0 0 16px 16px; z-index: 2; }
@@ -29,6 +29,9 @@
 .stage .act, .stage .pager { display: inline-flex; align-items: center; gap: .2em; }
 .stage .reaction, .stage .chip { display: inline-flex; align-items: center; gap: .4em; padding: .22em .8em; white-space: nowrap; }
 .stage .followups { display: flex; flex-wrap: wrap; gap: .6em; }
+/* The exporter freezes every box at its measured fractional px size. A wrap row that hugs its content (chips) can then wrap by a rounding hair
+   and overlap what follows, so while exporting these rows get real headroom. */
+.stage.exporting .src-chips, .stage.exporting .followups { width: calc(100% + 40px); }
 .stage .msg-error { display: flex; align-items: center; gap: .5em; margin-top: .6em; padding: .5em .8em; border-radius: .6em; background: #fee2e2; color: #991b1b; }
 .stage .typing { display: flex; align-items: center; gap: .35em; padding: .3em 0; }
 .stage .typing i { width: .55em; height: .55em; border-radius: 50%; background: currentColor; opacity: .35; } .stage .typing i:nth-child(2) { opacity: .6; } .stage .typing i:nth-child(3) { opacity: .9; }

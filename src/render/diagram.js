@@ -40,5 +40,6 @@ export function diagramSvg(block, { fs, theme, width }) {
     g += `<g class="dg-node" data-id="${esc(n.id)}"><g fill="${fill}" stroke="${stroke}" stroke-width="${sw * 1.2}">${shape}</g><text x="${cx}" y="${cy + f * 0.35}" text-anchor="middle" font-size="${f}" font-weight="600" fill="${th.nodeText}">${esc(n.label)}</text><title>${esc(n.label)} (${esc(n.id)})</title></g>`;
   });
   const maxW = width || lay.width;
-  return `<svg class="diagram-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${lay.width} ${lay.height}" width="${Math.round(lay.width)}" height="${Math.round(lay.height)}" style="max-width:${Math.min(100, Math.round(lay.width / maxW * 100) || 100)}%;max-width:100%;height:auto;font-family:inherit">${g}</svg>`;
+  const H = lay.height + (lay.edges.some(e => e.back) ? f * 3 : 0);   // back edges bow out below the nodes
+  return `<svg class="diagram-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${lay.width} ${H}" width="${Math.round(lay.width)}" height="${Math.round(H)}" style="max-width:${Math.min(100, Math.round(lay.width / maxW * 100) || 100)}%;max-width:100%;height:auto;font-family:inherit">${g}</svg>`;
 }

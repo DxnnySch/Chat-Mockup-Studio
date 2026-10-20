@@ -143,9 +143,9 @@ function headerHtml(project) {
   const ctl = H.controls === 'mac' ? `<span class="wc mac"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>`
     : H.controls === 'win' ? `<span class="wc win" style="color:${H.color}"><b>—</b><b>▢</b><b>✕</b></span>` : '';
   const av = H.style === 'bar' ? `<span class="hd-av">${avatarHtml(project.participants.assistant.avatar, fs * 1.9, theme, { project })}</span>` : '';
-  const badge = H.modelBadge ? `<span class="hd-badge" style="border:1px solid ${theme.colors.border};font-size:${px(fs * 0.62)}">${esc(H.modelBadge)}</span>` : '';
+  const badge = H.modelBadge ? `<span class="hd-badge" style="border:1px solid ${theme.colors.border};font-size:${px(fs * theme.chromeScale)}">${esc(H.modelBadge)}</span>` : '';
   const center = H.align === 'center' || H.style === 'minimal';
-  const title = `<div class="hd-title" style="text-align:${center ? 'center' : 'left'}"><div style="font-weight:700;font-size:${px(fs * 0.85)}">${esc(H.title)}</div>${H.subtitle ? `<div class="hd-sub" style="font-size:${px(fs * 0.58)};color:${theme.colors.muted}"><i class="dot"></i>${esc(H.subtitle)}</div>` : ''}</div>`;
+  const title = `<div class="hd-title" style="text-align:${center ? 'center' : 'left'}"><div style="font-weight:700;font-size:${px(fs * 0.85)}">${esc(H.title)}</div>${H.subtitle ? `<div class="hd-sub" style="font-size:${px(fs * theme.chromeScale)};color:${theme.colors.muted}"><i class="dot"></i>${esc(H.subtitle)}</div>` : ''}</div>`;
   return `<div class="chat-header hd-${H.style}" style="background:${H.bg};color:${H.color};${H.border ? `border-bottom:1px solid ${theme.colors.border};` : ''}padding:${px(fs * 0.55)} ${px(fs * 0.9)}">${H.controls === 'win' ? '' : ctl}${av}${title}${badge}${H.controls === 'win' ? ctl : ''}</div>`;
 }
 
@@ -159,7 +159,7 @@ function inputHtml(project) {
       <span class="in-text" style="${I.text ? '' : 'opacity:.55'}">${esc(I.text || I.placeholder)}</span>
       ${I.mic ? `<span class="in-ic" style="opacity:.7">${icon('mic', fs * 1.05)}</span>` : ''}
       <span class="send" style="background:${I.sendColor};width:${px(fs * 1.7)};height:${px(fs * 1.7)}">${icon('send', fs * 1.0, '#fff', 2.4)}</span>
-    </div>${I.disclaimer ? `<div class="disclaimer" style="font-size:${px(fs * 0.55)};color:${theme.colors.muted}">${esc(I.disclaimer)}</div>` : ''}</div>`;
+    </div>${I.disclaimer ? `<div class="disclaimer" style="font-size:${px(fs * theme.chromeScale * 0.95)};color:${theme.colors.muted}">${esc(I.disclaimer)}</div>` : ''}</div>`;
 }
 
 export function annotationsHtml(project, selectedAid, editing) {
@@ -210,7 +210,7 @@ export function renderChat(project, stage, opts = {}) {
   const base = { theme, canvasInner: innerW, badgeColor: opts.badgeColor || '#d62728' };
   const msgs = project.messages.map(m => messageHtml(m, project, base)).join('');
 
-  stage.className = 'stage' + (canvas.transparent && !opts.exporting ? ' transparent' : '') + (opts.editing && !opts.exporting ? ' editing' : '');
+  stage.className = 'stage' + (canvas.transparent && !opts.exporting ? ' transparent' : '') + (opts.editing && !opts.exporting ? ' editing' : '') + (opts.exporting ? ' exporting' : '');
   stage.style.cssText = [
     `width:${canvas.width}px`, `min-height:${canvas.minHeight || 0}px`, `padding:${canvas.padding}px`,
     `background:${backgroundCss(canvas)}`, `border-radius:${canvas.radius}px`,

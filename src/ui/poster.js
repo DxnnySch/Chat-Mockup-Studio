@@ -12,7 +12,7 @@ const CATS = [
 ];
 // theme scale key to raise when a category is too small
 const SCALE_KEY = { 'Names / time': 'theme.names.scale', 'Meta info': 'theme.meta.scale', 'Sources': 'theme.sources.scale', 'Figure captions': 'theme.media.captionScale', 'Chart labels': 'theme.chart.fontScale',
-  'Diagram labels': 'theme.diagram.fontScale', 'Code': 'theme.code.scale', 'Reasoning panel': 'theme.thinking.scale' };
+  'Diagram labels': 'theme.diagram.fontScale', 'Header': 'theme.chromeScale', 'Input disclaimer': 'theme.chromeScale', 'Code': 'theme.code.scale', 'Reasoning panel': 'theme.thinking.scale' };
 
 const catOf = (el) => { for (const [sel, name] of CATS) if (el.closest(sel)) return name; return 'Other'; };
 
@@ -39,7 +39,7 @@ export function scanStage(stage, project) {
   let n;
   while ((n = walker.nextNode())) {
     const txt = n.nodeValue.trim(); if (!txt) continue;
-    const el = n.parentElement; if (!el || el.closest('style, .anno-layer, .katex-mathml')) continue;
+    const el = n.parentElement; if (!el || el.closest('style, .anno-layer, .katex-mathml, .cite, .src-idx, .avatar, .msg-badge')) continue;
     const cs = getComputedStyle(el);
     if (cs.display === 'none' || cs.visibility === 'hidden') continue;
     let px = parseFloat(cs.fontSize);
@@ -90,8 +90,8 @@ export function buildPoster() {
       const fs = st.theme.font.size;
       for (const path of new Set(Object.values(SCALE_KEY))) {
         const keys = path.split('.'); let o = st; keys.slice(0, -1).forEach(q => (o = o[q]));
-        const need = cv.minPt / (fs * 0.75 * k);
-        if (o[keys[keys.length - 1]] < need) o[keys[keys.length - 1]] = Math.min(1.3, +need.toFixed(2));
+        const need = (cv.minPt / (fs * 0.75 * k)) * 1.06;      // +6 %: rounding + SVG fit-to-width shrink + the disclaimer's 0.95 factor
+        if (o[keys[keys.length - 1]] < need) o[keys[keys.length - 1]] = Math.min(1.3, Math.ceil(need * 100) / 100);
       }
     }, 'autofix');
     app.toast('Raised text sizes to the thresholds'); panel.sync(); refresh();

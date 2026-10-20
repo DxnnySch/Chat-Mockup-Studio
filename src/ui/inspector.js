@@ -113,7 +113,7 @@ function styleTab() {
   p.group('Names & time', [
     T('theme.names.show', 'Show names', 'toggle'), T('theme.names.showForUser', 'Names for user too', 'toggle'), R('theme.names.scale', 'Size', 0.4, 1.3, 0.02),
     T('theme.names.weight', 'Weight', 'select', { options: [400, 500, 600, 700, 800].map(Number) }), T('theme.names.uppercase', 'Uppercase', 'toggle'),
-    T('theme.time.show', 'Show timestamps', 'toggle'), R('theme.time.scale', 'Timestamp size', 0.4, 1.3, 0.02),
+    T('theme.time.show', 'Show timestamps', 'toggle'), R('theme.time.scale', 'Timestamp size', 0.4, 1.3, 0.02), R('theme.chromeScale', 'Header / footer small text', 0.4, 1.2, 0.02),
   ]);
   p.group('Sources / provenance', [
     T('theme.sources.style', 'Style', 'select', { options: [['cards', 'Cards'], ['chips', 'Chips'], ['footnotes', 'Footnote list']] }), T('theme.sources.title', 'Heading', 'text'),

@@ -19,6 +19,7 @@ export const baseTheme = () => ({
   font: { body: FONT_STACKS['Sans (system)'], heading: FONT_STACKS['Sans (system)'], mono: FONT_STACKS.Mono, size: 22, lineHeight: 1.5, weight: 400, letterSpacing: 0 },
   colors: { text: '#1f2328', muted: '#5b6470', accent: '#2563eb', link: '#1d4ed8', surface: '#ffffff', border: '#d9dee5', codeBg: '#f3f5f8', codeText: '#1f2328' },
   gap: 24,
+  chromeScale: 0.62,
   user: { align: 'right', layout: 'bubble', bg: '#e8eefc', color: '#1f2328', radius: 20, borderWidth: 0, borderColor: '#c7d3f5', maxWidth: 78, padX: 20, padY: 14, shadow: 'none', fontScale: 1 },
   assistant: { align: 'left', layout: 'plain', bg: 'transparent', color: '#1f2328', radius: 20, borderWidth: 0, borderColor: '#d9dee5', maxWidth: 100, padX: 0, padY: 0, shadow: 'none', fontScale: 1 },
   avatar: { show: true, size: 48, shape: 'circle', position: 'side', ring: 0, ringColor: '#ffffff', gap: 16 },

@@ -202,6 +202,17 @@ await step('panels stay open after deleting items / rebuilds', async () => {
   assert.equal(await page.locator('#right details.grp', { hasText: 'Colours' }).evaluate(d => d.open), true, 'colours group closed');
 });
 
+await step('export gives wrap rows headroom (chips never wrap by a rounding hair)', async () => {
+  await page.evaluate(() => { __app.store.set('theme.sources.style', 'chips'); });
+  await page.waitForTimeout(300);
+  const extra = await page.evaluate(() => __app.withCleanStage(async (st) => {
+    const chips = st.querySelector('.src-chips'), foot = chips.closest('.msg-foot');
+    return chips.getBoundingClientRect().width - foot.getBoundingClientRect().width;
+  }));
+  assert.ok(extra >= 30, 'chips row not widened while exporting: ' + extra);
+  await page.evaluate(() => { __app.store.set('theme.sources.style', 'cards'); });
+});
+
 await step('autosave survives reload', async () => {
   await page.evaluate(() => __app.store.set('name', 'Persist me'));
   await page.waitForTimeout(900);
